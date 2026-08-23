@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id             Int             @id @default(autoincrement())
+  name           String
+  email          String          @unique
+  password       String
+  role           String
+  country        String
+  paymentMethods PaymentMethod[]
+  orders         Order[]
+}
+
+model Restaurant {
+  id      Int        @id @default(autoincrement())
+  name    String
+  country String
+  menus   MenuItem[]
+  orders  Order[]
+}
+
+model Order {
+  id              Int            @id @default(autoincrement())
+  user            User           @relation(fields: [userId], references: [id])
+  userId          Int
+  restaurant      Restaurant     @relation(fields: [restaurantId], references: [id])
+  restaurantId    Int
+  paymentMethod   PaymentMethod? @relation(fields: [paymentMethodId], references: [id])
+  paymentMethodId Int?
+  items           OrderItem[]
+  total           Float
+  status          String         @default("PENDING")
+  country         String
+  createdAt       DateTime       @default(now())
+}
+
+model OrderItem {
+  id         Int      @id @default(autoincrement())
+  order      Order    @relation(fields: [orderId], references: [id])
+  orderId    Int
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id])
+  menuItemId Int
+  qty        Int
+  lineTotal  Float
+}
+
+model MenuItem {
+  id           Int        @id @default(autoincrement())
+  name         String
+  price        Float
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId Int
+  orderItems   OrderItem[]
+}
+
+model PaymentMethod {
+  id      Int     @id @default(autoincrement())
+  user    User    @relation(fields: [userId], references: [id])
+  userId  Int
+  label   String
+  details String
+  isDefault Boolean @default(false)
+  orders  Order[]
+}
