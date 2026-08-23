@@ -1,6 +1,6 @@
 # Food Ordering App 🍱
 
-Full-stack app with NestJS GraphQL backend and Next.js frontend implementing RBAC + ReBAC by country.
+Full-stack app made using NestJS, GraphQL for backend, Prisma Studio for database and Next.js for frontend implementing RBAC + ReBAC by country.
 
 ## Backend setup 
 
