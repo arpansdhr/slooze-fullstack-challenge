@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { ForbiddenError } from 'apollo-server-express';
+import { GraphQLError } from 'graphql';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -16,11 +16,15 @@ export class RolesGuard implements CanActivate {
     const ctx = GqlExecutionContext.create(context);
     const { user } = ctx.getContext();
     if (!user) {
-      throw new ForbiddenError('Unauthorized');
+      throw new GraphQLError('Unauthorized', {
+        extensions: { code: 'UNAUTHENTICATED' },
+      });
     }
 
     if (!requiredRoles.includes(user.role)) {
-      throw new ForbiddenError('Forbidden: insufficient role');
+      throw new GraphQLError('Forbidden: insufficient role', {
+        extensions: { code: 'FORBIDDEN' },
+      });
     }
 
     return true;
