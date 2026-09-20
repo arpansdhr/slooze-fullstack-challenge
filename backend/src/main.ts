@@ -12,7 +12,9 @@ async function bootstrap() {
     credentials: true,
   });
 
-  await app.listen(4000);
-  console.log('Backend listening on http://localhost:4000/graphql');
+  const port = process.env.PORT || 4000;
+
+  await app.listen(port, '0.0.0.0');
+  console.log(`Backend listening on port ${port}`);
 }
 bootstrap();
