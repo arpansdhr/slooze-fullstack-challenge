@@ -4,3 +4,4 @@ dist
 .env
 frontend/.next
 backend/prisma/dev.db
+backend/prisma/dev.db-journal
