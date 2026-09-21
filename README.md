@@ -22,10 +22,15 @@ GraphQL endpoint: `http://localhost:4000/graphql`
 
 App URL: `http://localhost:3000`
 
-## Seed Users
+## Seeded Users
 - `admin.india@example.com` (ADMIN, INDIA)
-- `manager.america@example.com` (MANAGER, AMERICA)
+- `manager.india@example.com` (MANAGER, INDIA)
 - `member.india@example.com` (MEMBER, INDIA)
+- `member2.india@example.com` (MEMBER2, INDIA)
+- `admin.america@example.com` (ADMIN, AMERICA)
+- `manager.america@example.com` (MANAGER, AMERICA)
+- `member.america@example.com` (MEMBER, AMERICA)
+
 Password for all: `Pa$$w0rd`
 
 ## View Database
